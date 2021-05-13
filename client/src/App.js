@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/footer/Footer";
 import Container from "./components/Container";
 
-console.log(process.env.REACT_APP_GOOGLE_API_KEY)
+
 
 
 

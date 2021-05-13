@@ -1,20 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Row from "../components/Row"
+import Jumbotron from "../components/Jumbotron"
 import API from "../utils/API"
 
 
 function Main() {
 
+    const [booksState, setBooksState] = useState({
+        _id: "",
+        authors: "",
+        description: "",
+        image: "",
+        link: "",
+        title: "",
+    })
+
+    
+
+
+
+    useEffect((search) => {
+        API.getBook(search)
+        .then((res) => {
+            console.log(res)
+            // setBooksState(res);
+            // console.log("booksState: " + booksState);
+        })
+    }, [])
+
     return (
         <>
             <Row />
+            <Jumbotron>
 
-            <div className="col-md-4 col-lg-4">
-                <img src={process.env.PUBLIC_URL + '/assets/myPhoto.png'} alt="myPhoto"></img>
-            </div>
-            <div className="col-sm-12 col-md-8 col-lg-8 bg-secondary">
-
-            </div>
+            </Jumbotron>
 
         </>
     )
