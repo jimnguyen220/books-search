@@ -9,7 +9,7 @@ import { Input, FormBtn } from "../components/Form";
 function Books() {
   // Setting our component's initial state
   const [books, setBooks] = useState([])
-  const [search, setSearch] = useState("Harry Potter")
+  const [search, setSearch] = useState("")
 
 
 
@@ -41,23 +41,16 @@ function Books() {
     setSearch({[name]: value})
   };
 
-  // When the form is submitted, use the API.saveBook method to save the book data
-  // Then reload books from the database
+  // Searches for a new book with google books search API
   function handleFormSubmit(event) {
     event.preventDefault();
-    API.newBook(search)
-    .then(res=> {
-      console.log(res.data)
-    })
-    // if (formObject.title && formObject.author) {
-    //   API.saveBook({
-    //     title: formObject.title,
-    //     author: formObject.author,
-    //     synopsis: formObject.synopsis
-    //   })
-        // .then(res => loadBooks())
-        // .catch(err => console.log(err));
-    // }
+    console.log(search.search)
+    API.newBook(search.search)
+      .then(res =>
+        // console.log(res.data) 
+        setBooks(res.data.items)
+      )
+      .catch(err => console.log(err));
   };
 
     return (
