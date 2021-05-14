@@ -10,7 +10,7 @@ function Books() {
   // Setting our component's initial state
   const [books, setBooks] = useState([])
   const [search, setSearch] = useState("Harry Potter")
-  const [formObject, setFormObject] = useState({})
+
 
 
   // Load all books and store them with setBooks
@@ -68,7 +68,7 @@ function Books() {
               <Input
                 onChange={handleInputChange}
                 name="search"
-                placeholder="Search Book by title or author"
+                placeholder="Search Books by title or author"
               />
               <FormBtn
                 onClick={handleFormSubmit}
@@ -84,7 +84,7 @@ function Books() {
                   <ListItem key={book._id}>
                     <Link to={"/books/" + book._id}>
                       <strong>
-                        {book.title} by {book.author}
+                        {book.volumeInfo.title} by {book.volumeInfo.authors}
                       </strong>
                     </Link>
                     <DeleteBtn onClick={() => deleteBook(book._id)} />
