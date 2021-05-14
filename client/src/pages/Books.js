@@ -12,6 +12,7 @@ function Books() {
   const [books, setBooks] = useState([])
   const [formObject, setFormObject] = useState({})
 
+
   // Load all books and store them with setBooks
   useEffect(() => {
     loadBooks()
@@ -20,7 +21,8 @@ function Books() {
   // Loads all books and sets them to books
   function loadBooks() {
     API.getBooks()
-      .then(res => 
+      .then(res =>
+        // console.log(res.data) 
         setBooks(res.data)
       )
       .catch(err => console.log(err));
