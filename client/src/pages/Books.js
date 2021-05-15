@@ -10,7 +10,7 @@ import Card from "../components/Card"
 function Books() {
   // Setting our component's initial state
   const [books, setBooks] = useState([])
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState()
 
 
 
