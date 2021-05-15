@@ -97,9 +97,9 @@ function Books() {
              link={book.volumeInfo.previewLink}
             />
              {/* <Link to={"/books/" + book.id}> */}
-             <SaveBtn onClick={saveBook(book)} />
+             {/* <SaveBtn onClick={saveBook(book)} /> */}
              {/* </Link> */}
-             <DeleteBtn onClick={() => deleteBook(book._id)} />
+             {/* <DeleteBtn onClick={() => deleteBook(book._id)} /> */}
             </>
           ))}
         </Container>
