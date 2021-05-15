@@ -45,6 +45,7 @@ function Books() {
 
   // Handles updating component state when the user types into the input field
   function handleInputChange(event) {
+    event.preventDefault();
     const { name, value } = event.target;
     setSearch({ [name]: value })
   };
