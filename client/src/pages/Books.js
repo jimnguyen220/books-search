@@ -36,8 +36,8 @@ function Books() {
       .catch(err => console.log(err));
   }
 
-  function saveBook(id, title, authors, description, image, link) {
-    console.log([id, title, authors, description, image, link])
+  function saveBook(book) {
+    console.log(book)
     // API.saveBook(id)
     //   .then(res => loadBooks())
     //   .catch(err => console.log(err));
@@ -83,13 +83,6 @@ function Books() {
         </Col>
       </Row>
 
-      {/* // id: {type: String },
-      // title: {type: String },
-      // authors: {type: Array },
-      // description: {type: String },
-      // image: {type: String },
-      // link: {type: String } */}
-
       {books.length ? (
         <Container>
           {books.map(book => (
@@ -104,13 +97,7 @@ function Books() {
              link={book.volumeInfo.previewLink}
             />
              {/* <Link to={"/books/" + book.id}> */}
-             <SaveBtn onClick={() => saveBook([
-               book.id,
-               book.volumeInfo.title, 
-               book.volumeInfo.authors,
-               book.volumeInfo.description, 
-               book.volumeInfo.imageLinks.thumbnail
-               ])} />
+             <SaveBtn onClick={saveBook(book)} />
              {/* </Link> */}
              <DeleteBtn onClick={() => deleteBook(book._id)} />
             </>
