@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import DeleteBtn from "../components/DeleteBtn";
+import SaveBtn from "../components/SaveBtn";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
-import { List, ListItem } from "../components/List";
 import { Input, FormBtn } from "../components/Form";
+import Card from "../components/Card"
 
 function Books() {
   // Setting our component's initial state
@@ -20,7 +21,7 @@ function Books() {
 
   // Loads all books and sets them to books
   function loadBooks() {
-    API.newBook(search)
+    API.getBooks()
       .then(res =>
         // console.log(res.data) 
         setBooks(res.data.items)
@@ -35,63 +36,95 @@ function Books() {
       .catch(err => console.log(err));
   }
 
+  function saveBook(id, title, authors, description, image, link) {
+    console.log([id, title, authors, description, image, link])
+    // API.saveBook(id)
+    //   .then(res => loadBooks())
+    //   .catch(err => console.log(err));
+  }
+
   // Handles updating component state when the user types into the input field
   function handleInputChange(event) {
     const { name, value } = event.target;
-    setSearch({[name]: value})
+    setSearch({ [name]: value })
   };
+
+
 
   // Searches for a new book with google books search API
   function handleFormSubmit(event) {
     event.preventDefault();
-    console.log(search.search)
-    API.newBook(search.search)
-      .then(res =>
-        // console.log(res.data) 
-        setBooks(res.data.items)
-      )
-      .catch(err => console.log(err));
+    if (search.search) {
+      API.newBook(search.search)
+        .then(res =>
+          setBooks(res.data.items)
+        )
+        .catch(err => console.log(err))
+    };
+
   };
 
-    return (
-      <Container fluid>
-        <Row>
-          <Col size="md-6">
-            <form>
-              <Input
-                onChange={handleInputChange}
-                name="search"
-                placeholder="Search Books by title or author"
-              />
-              <FormBtn
-                onClick={handleFormSubmit}
-              >
-                Search
-              </FormBtn>
-            </form>
-          </Col>
-          <Col size="md-6 sm-12">
-            {books.length ? (
-              <List>
-                {books.map(book => (
-                  <ListItem key={book._id}>
-                    <Link to={"/books/" + book._id}>
-                      <strong>
-                        {book.volumeInfo.title} by {book.volumeInfo.authors}
-                      </strong>
-                    </Link>
-                    <DeleteBtn onClick={() => deleteBook(book._id)} />
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
-          </Col>
-        </Row>
-      </Container>
-    );
-  }
+  return (
+    <>
+      <Row>
+        <Col>
+          <form>
+            <Input
+              onChange={handleInputChange}
+              name="search"
+              placeholder="Search by Title or Author(s)"
+            />
+            <FormBtn
+              onClick={handleFormSubmit}
+            >
+              Search
+            </FormBtn>
+          </form>
+        </Col>
+      </Row>
+
+      {/* // id: {type: String },
+      // title: {type: String },
+      // authors: {type: Array },
+      // description: {type: String },
+      // image: {type: String },
+      // link: {type: String } */}
+
+      {books.length ? (
+        <Container>
+          {books.map(book => (
+            // console.log(book)
+            <>
+            <Card
+             id={book.id}
+             title={book.volumeInfo.title}
+             authors={book.volumeInfo.authors}
+             description={book.volumeInfo.description}
+             image={book.volumeInfo.imageLinks.thumbnail}
+             link={book.volumeInfo.previewLink}
+            />
+             {/* <Link to={"/books/" + book.id}> */}
+             <SaveBtn onClick={() => saveBook([
+               book.id,
+               book.volumeInfo.title, 
+               book.volumeInfo.authors,
+               book.volumeInfo.description, 
+               book.volumeInfo.imageLinks.thumbnail
+               ])} />
+             {/* </Link> */}
+             <DeleteBtn onClick={() => deleteBook(book._id)} />
+            </>
+          ))}
+        </Container>
+      ) : (
+        <Container fluid>
+          <h3>Your results will display here</h3>
+        </Container>
+      )}
+
+    </>
+  );
+}
 
 
 export default Books;
