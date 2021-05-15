@@ -45,7 +45,6 @@ function Books() {
 
   // Handles updating component state when the user types into the input field
   function handleInputChange(event) {
-    event.preventDefault();
     const { name, value } = event.target;
     setSearch({ [name]: value })
   };
@@ -84,7 +83,7 @@ function Books() {
         </Col>
       </Row>
 
-      {/* {books.length ? ( */}
+      {books.length ? (
         <Container>
           {books.map(book => (
             // console.log(book)
@@ -104,11 +103,11 @@ function Books() {
             </>
           ))}
         </Container>
-      {/* ) : (
+      ) : (
         <Container fluid>
           <h3>Your results will display here</h3>
         </Container>
-      )} */}
+      )}
 
     </>
   );
