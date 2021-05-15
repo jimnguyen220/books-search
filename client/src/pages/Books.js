@@ -83,7 +83,7 @@ function Books() {
         </Col>
       </Row>
 
-      {books.length ? (
+      {books ? (
         <Container>
           {books.map(book => (
             // console.log(book)
